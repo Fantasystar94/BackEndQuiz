@@ -1,0 +1,4 @@
+@baseUrl = http://localhost:8080
+### SIGNUP
+POST http://localhost:8080/user
+Content-Type: application/json

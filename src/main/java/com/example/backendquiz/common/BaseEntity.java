@@ -1,6 +1,4 @@
 package com.example.backendquiz.common;
-
-import com.nimbusds.oauth2.sdk.token.AccessTokenParseUtils;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

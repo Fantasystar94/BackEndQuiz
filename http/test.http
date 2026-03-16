@@ -1,0 +1,48 @@
+@baseUrl = http://localhost:8080
+### USER
+POST http://localhost:8080/user
+Content-Type: application/json
+
+### CATEGORY
+POST http://localhost:8080/categories
+Content-Type: application/json
+
+### AI
+# curl https://api.openai.com/v1/chat/completions
+#  -H "Authorization: Bearer sk-xxxx"
+#  -H "Content-Type: application/json"
+#  -d '{
+#    "model": "gpt-4o-mini",
+#    "messages": [
+#      {"role": "user", "content": "hello"}
+#    ]
+#  }'
+POST https://api.openai.com/v1/chat/completions
+Content-Type: application/json
+
+{
+  "model": "gpt-4o-mini",
+  "messages": [
+    {
+      "role": "user",
+      "content": "hello"
+    }
+  ]
+}
+
+###
+
+POST http://localhost:8080/admin/questions/generate
+
+###
+
+GET http://localhost:8080/quiz/1
+
+###
+POST http://localhost:8080/quiz/submit
+Content-Type: application/json
+
+{
+    "questionId":9,
+    "answer": 2
+}

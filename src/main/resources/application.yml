@@ -1,1 +1,26 @@
-spring.application.name=demo1
+spring:
+  application:
+    name: BackEndQuiz
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: false
+    show-sql: true
+  task:
+    scheduling:
+      pool:
+        size: 2
+openai:
+  api-key: ${OPENAI_API_KEY}
+  url: ${OPENAI_URL}
+  model: gpt-4o-mini
+

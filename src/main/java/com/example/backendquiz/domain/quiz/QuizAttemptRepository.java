@@ -1,4 +1,4 @@
-package com.example.backendquiz.domain.quizattempt;
+package com.example.backendquiz.domain.quiz;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

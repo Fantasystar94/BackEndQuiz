@@ -1,4 +1,4 @@
-package com.example.backendquiz.domain.quizattempt;
+package com.example.backendquiz.domain.quiz;
 
 import com.example.backendquiz.common.BaseEntity;
 import com.example.backendquiz.domain.question.Question;

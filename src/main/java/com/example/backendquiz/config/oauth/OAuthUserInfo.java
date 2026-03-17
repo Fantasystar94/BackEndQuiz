@@ -3,7 +3,7 @@ import java.util.Map;
 
 public class OAuthUserInfo {
 
-    private Map<String, Object> attributes;
+    private final Map<String, Object> attributes;
 
     public OAuthUserInfo(Map<String, Object> attributes) {
         this.attributes = attributes;

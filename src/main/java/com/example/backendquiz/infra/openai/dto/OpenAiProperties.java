@@ -14,5 +14,5 @@ public class OpenAiProperties {
     private String apikey;
     private String url;
     private String model;
-    private int countPerCategory = 20;
+    private int countPerCategory = 3;
 }

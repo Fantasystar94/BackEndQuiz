@@ -12,6 +12,7 @@ public class AuthController {
 
     @GetMapping("/login/success")
     public ResponseEntity<String> loginSuccess(@RequestParam String token) {
+
         return ResponseEntity.ok(token);
     }
 }

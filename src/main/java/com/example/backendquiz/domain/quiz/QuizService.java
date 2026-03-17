@@ -29,13 +29,6 @@ public class QuizService {
     @Transactional
     public QuizSubmitResponse submit(QuizSubmitRequest request, User user) {
 
-        /*
-        *     private Long questionId;
-    private int answer;
-    private String description;
-    private boolean isTrue;
-        * */
-
-        return queryQuestionRepository.checkedQuestionIsCorrect(request);
+        return queryQuestionRepository.checkedQuestionIsCorrect(request, user);
     }
 }

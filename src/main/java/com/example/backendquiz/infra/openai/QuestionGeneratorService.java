@@ -1,10 +1,11 @@
 package com.example.backendquiz.infra.openai;
 
+import com.example.backendquiz.common.CategoryStatus;
 import com.example.backendquiz.domain.category.Category;
 import com.example.backendquiz.domain.category.CategoryRepository;
 import com.example.backendquiz.domain.question.Question;
 import com.example.backendquiz.domain.question.QuestionRepository;
-import com.example.backendquiz.infra.openai.dto.OpenAiCreateQuestionQueueResponse;
+import com.example.backendquiz.infra.openai.dto.OpenAiCreateQuestionMapResponse;
 import com.example.backendquiz.infra.openai.dto.OpenAiProperties;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -28,22 +31,19 @@ public class QuestionGeneratorService {
     private final OpenAiProperties openAiProperties;
 
     @Transactional
-    public OpenAiCreateQuestionQueueResponse generateQuestionsForAllCategories() {
+    public OpenAiCreateQuestionMapResponse generateQuestionsForAllCategories() {
 
         //항상 4개
         List<Category> categoryList = categoryRepository.findAll();
-        OpenAiCreateQuestionQueueResponse response = new OpenAiCreateQuestionQueueResponse();
+        OpenAiCreateQuestionMapResponse response = new OpenAiCreateQuestionMapResponse();
         for (Category category : categoryList) {
             try {
                 log.info("[QuestionGenerator] 카테고리 '{}' 문제 생성 시작", category.getName());
 
                 //제너레이트 시작. 한 카테고리 리스트 리턴
-                List<OpenAiCreateQuestionQueueResponse.OpenAiCreateQuestionResponse> dto = generateQuestions(category);
-                //해시맵으로 변경
-                OpenAiCreateQuestionQueueResponse.OpenAiCreateQuestionHashMapResponse listToHash = new OpenAiCreateQuestionQueueResponse.OpenAiCreateQuestionHashMapResponse(dto);
-                //데이터 추가하기
-                response.addData(listToHash);
-
+                List<OpenAiCreateQuestionMapResponse.OpenAiCreateQuestionResponse> responseList = generateQuestions(category);
+                //리스트를 put 해줌
+                response.putData(responseList);
                 log.info("[QuestionGenerator] 카테고리 '{}' 문제 생성 완료", category.getName());
             } catch (Exception e) {
                 log.error("[QuestionGenerator] 카테고리 '{}' 문제 생성 실패: {}", category.getName(), e.getMessage(), e);
@@ -55,7 +55,7 @@ public class QuestionGeneratorService {
     }
 
     @Transactional
-    public List<OpenAiCreateQuestionQueueResponse.OpenAiCreateQuestionResponse> generateQuestions(Category category) throws Exception {
+    public List<OpenAiCreateQuestionMapResponse.OpenAiCreateQuestionResponse> generateQuestions(Category category) throws Exception {
 
         String prompt = buildPrompt(category);
         String rawJson = openAiClient.requestCompletion(prompt);
@@ -89,7 +89,7 @@ public class QuestionGeneratorService {
         //전체 saveAll
         questionRepository.saveAll(data);
         //람다식으로 리스트화후 리턴
-        return data.stream().map(OpenAiCreateQuestionQueueResponse.OpenAiCreateQuestionResponse::from).toList();
+        return data.stream().map(OpenAiCreateQuestionMapResponse.OpenAiCreateQuestionResponse::from).toList();
     }
 
     private String buildPrompt(Category category) {

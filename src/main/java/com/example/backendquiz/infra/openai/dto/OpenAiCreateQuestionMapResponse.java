@@ -7,38 +7,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.*;
-
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
-public class OpenAiCreateQuestionQueueResponse {
+public class OpenAiCreateQuestionMapResponse {
 
-    private Queue<OpenAiCreateQuestionHashMapResponse> generatedQuestions = new ArrayDeque<>();
+    private Map<CategoryStatus, List<OpenAiCreateQuestionResponse>> createQuestionList;
 
-    public void addData(OpenAiCreateQuestionHashMapResponse list) {
-        this.generatedQuestions.add(list);
+    public OpenAiCreateQuestionMapResponse() {
+        this.createQuestionList = new HashMap<>();
     }
 
-    @Getter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class OpenAiCreateQuestionHashMapResponse {
+    public void putData(List<OpenAiCreateQuestionResponse> lists) {
 
-        private Map<CategoryStatus, List<OpenAiCreateQuestionResponse>> createQuestionList;
+        CategoryStatus status = lists.stream()
+                .map(OpenAiCreateQuestionResponse::getCategory)
+                .findFirst()
+                .orElseThrow();
 
-        public Map<CategoryStatus, List<OpenAiCreateQuestionResponse>> createListToHashMap(List<OpenAiCreateQuestionResponse> list) {
-
-            CategoryStatus status = list.stream()
-                    .map(OpenAiCreateQuestionResponse::getCategory)
-                    .findFirst()
-                    .orElseThrow();
-
-            return Map.of(status, list);
-        }
-
-        public OpenAiCreateQuestionHashMapResponse(List<OpenAiCreateQuestionResponse> list) {
-            this.createQuestionList = this.createListToHashMap(list);
-        }
+        this.createQuestionList.put(status, lists);
     }
 
     @Getter

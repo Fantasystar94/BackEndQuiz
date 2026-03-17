@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -53,9 +54,13 @@ public class QuestionGeneratorService {
         log.debug("[QuestionGenerator] GPT 응답 raw: {}", rawJson);
 
         JsonNode questionNode = objectMapper.readTree(rawJson).path("questions");
+        //배열로 담음
+        List<Question> data = new ArrayList<>();
 
         for (JsonNode node : questionNode) {
+
             try {
+
                 Question question = new Question(
                         category,
                         node.path("question").asText(),
@@ -66,12 +71,15 @@ public class QuestionGeneratorService {
                         node.path("answer").asInt(),
                         node.path("explanation").asText()
                 );
-                questionRepository.save(question);
+                //한개씩 add
+                data.add(question);
+
             } catch (Exception e) {
                 log.warn("[QuestionGenerator] 문제 파싱/저장 실패 (스킵): {}", e.getMessage());
             }
         }
-
+        //전체 saveAll
+        questionRepository.saveAll(data);
     }
 
     private String buildPrompt(Category category) {

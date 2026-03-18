@@ -1,5 +1,6 @@
 package com.example.backendquiz.config.jwt;
 
+import com.example.backendquiz.auth.AuthUser;
 import com.example.backendquiz.domain.user.User;
 import com.example.backendquiz.domain.user.UserRepository;
 import jakarta.servlet.FilterChain;
@@ -33,17 +34,16 @@ public class JwtFilter extends OncePerRequestFilter {
             String email = jwtProvider.getEmail(token);
             String role = jwtProvider.getRole(token);
 
-            User user = userRepository.findByEmail(email).orElse(null);
+            Long userId = jwtProvider.getId(token);
 
-            if (user != null) {
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(
-                                user,
+                                new AuthUser(userId, email),
                                 null,
                                 List.of(new SimpleGrantedAuthority("ROLE_" + role))
                         );
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
+
         }
 
         filterChain.doFilter(request, response);

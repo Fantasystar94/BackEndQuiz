@@ -4,7 +4,9 @@ import com.example.backendquiz.domain.quiz.dto.QuestionResponse;
 import com.example.backendquiz.domain.quiz.dto.QuizSubmitRequest;
 import com.example.backendquiz.domain.quiz.dto.QuizSubmitResponse;
 import com.example.backendquiz.domain.user.User;
+import com.example.backendquiz.domain.wrongnote.WrongNote;
 import com.example.backendquiz.domain.wrongnote.WrongNoteRepository;
+import com.example.backendquiz.domain.wrongnote.WrongNoteService;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +20,7 @@ public class QueryQuestionRepository {
     private final JPAQueryFactory jpaQueryFactory;
     private final QQuestion question = QQuestion.question1;
     private final QuestionRepository questionRepository;
-    private final WrongNoteRepository wrongNoteRepository;
+    private final WrongNoteService wrongNoteService;
 
     public QuestionResponse findRandomByCategoryId(Long categoryId) {
 
@@ -60,18 +62,14 @@ public class QueryQuestionRepository {
 
         boolean isCorrect = getQuestion.getAnswer() == quizSubmitRequest.getAnswer();
 
+        //오답노트 서비스 가져옴
         if (!isCorrect) {
-            wrongNoteRecord(getQuestion, user);
+            wrongNoteService.addOrIncrease(user, getQuestion);
         }
 
         return new QuizSubmitResponse(getQuestion.getId(), getQuestion.getAnswer(), getQuestion.getExplanation(), isCorrect);
 
     }
 
-    public void wrongNoteRecord(Question question, User user) {
-        //만약 유저가 문제를 갖고 있었다면 카운트++ 아니면 새로 생성
-//        if (user != null) {
-//            wrongNoteRepository.findByUserIdAndQuestionId(question.getId(), user.getId()).ifPresentOrElse();
-//        }
-    }
+
 }

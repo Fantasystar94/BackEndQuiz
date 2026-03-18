@@ -26,13 +26,14 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException {
+
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         String email = (String) oAuth2User.getAttributes().get("email");
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("유저 없음"));
 
-        String token = jwtProvider.generateToken(email, user.getRole().name());
+        String token = jwtProvider.generateToken(user.getId(), email, user.getRole().name());
 
         log.info("[OAuth2SuccessHandler] 로그인 성공 - email: {}", email);
 

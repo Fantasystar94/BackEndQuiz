@@ -1,6 +1,7 @@
 package com.example.backendquiz.domain.category;
 
 import com.example.backendquiz.common.CategoryStatus;
+import com.example.backendquiz.common.CommonResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping
-    public Category createCategory() {
+    public CommonResponse<Void> createCategory() {
 
         return categoryService.createCategory(
                 CategoryStatus.SPRING,

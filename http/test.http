@@ -9,15 +9,16 @@ GET http://localhost:8080/api/categories
 
 ### 카테고리별 랜덤 문제 1개 조회
 GET http://localhost:8080/api/quiz/1
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3b25taW55dW5nOTRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpZCI6MiwiaWF0IjoxNzczODU2NTY4LCJleHAiOjE3NzM4NjAxNjh9.hMUz05unn7y-ZomyrlPC11OGZ8zWbPhuL-O4n4sCq0I
 ### 답 제출
 # @no-redirect
 POST http://localhost:8080/api/quiz/submit
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3b25taW55dW5nOTRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpZCI6MiwiaWF0IjoxNzczODU2NTY4LCJleHAiOjE3NzM4NjAxNjh9.hMUz05unn7y-ZomyrlPC11OGZ8zWbPhuL-O4n4sCq0I
 Content-Type: application/json
 
 {
-  "questionId": 1,
-  "answer": 2,
+  "questionId": 183,
+  "answer": 3,
   "categoryId": 1
 }
 

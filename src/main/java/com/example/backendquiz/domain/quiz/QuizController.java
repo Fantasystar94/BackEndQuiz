@@ -1,5 +1,6 @@
 package com.example.backendquiz.domain.quiz;
 
+import com.example.backendquiz.auth.AuthUser;
 import com.example.backendquiz.domain.category.CategoryRepository;
 import com.example.backendquiz.domain.quiz.dto.*;
 import com.example.backendquiz.domain.user.User;
@@ -38,8 +39,8 @@ public class QuizController {
     @PostMapping("/submit")
     public ResponseEntity<QuizSubmitResponse> submit(
             @RequestBody QuizSubmitRequest request,
-            @AuthenticationPrincipal User user  // 비로그인이면 null
+            @AuthenticationPrincipal AuthUser authUser  // 비로그인이면 null
     ) {
-        return ResponseEntity.ok(quizService.submit(request, user));
+        return ResponseEntity.ok(quizService.submit(request, authUser));
     }
 }

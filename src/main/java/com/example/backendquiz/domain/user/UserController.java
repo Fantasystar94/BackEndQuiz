@@ -17,13 +17,14 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public CommonResponse<Void> createUser() {
-        return userService.createUser(
+    public CommonResponse<User> createUser() {
+        User user = userService.createUser(
                 "test@test.com",
                 "testUser",
                 "provider",
                 "providerId",
                 UserRole.USER
         );
+        return CommonResponse.successWithData("createUserSuccess",user);
     }
 }

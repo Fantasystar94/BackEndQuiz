@@ -10,9 +10,11 @@ import com.example.backendquiz.domain.wrongnote.WrongNoteService;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.Random;
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class QueryQuestionRepository {
@@ -61,13 +63,14 @@ public class QueryQuestionRepository {
         Question getQuestion = questionRepository.findById(quizSubmitRequest.getQuestionId()).orElseThrow(() -> new RuntimeException("잘못된 문제"));
 
         boolean isCorrect = getQuestion.getAnswer() == quizSubmitRequest.getAnswer();
-
+        log.info("정답 여부:{}",isCorrect);
         //오답노트 서비스 가져옴
-        if (!isCorrect) {
+        if (user != null && !isCorrect) {
+            log.info("오답노트 addIncrease 접근:{},{}",user,getQuestion);
             wrongNoteService.addOrIncrease(user, getQuestion);
         }
 
-        return new QuizSubmitResponse(getQuestion.getId(), getQuestion.getAnswer(), getQuestion.getExplanation(), isCorrect);
+        return new QuizSubmitResponse(getQuestion.getId(), getQuestion.getCategory().getName(), getQuestion.getAnswer(), getQuestion.getExplanation(), isCorrect);
 
     }
 

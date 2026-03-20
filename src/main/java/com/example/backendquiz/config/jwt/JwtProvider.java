@@ -68,10 +68,12 @@ public class JwtProvider {
     }
 
     public Long getId(String token) {
-        return (Long) Jwts.parserBuilder()
+        Object id = Jwts.parserBuilder()
                 .setSigningKey(key).build()
                 .parseClaimsJws(token)
                 .getBody()
                 .get("id");
+
+        return ((Number) id).longValue();
     }
 }

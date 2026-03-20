@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -36,6 +37,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/categories", "/api/quiz/**").permitAll()
                         .requestMatchers("/admin/**").permitAll()
+                        .requestMatchers("/ws/**").permitAll()
                         .requestMatchers("/login/**", "/oauth2/**").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -50,6 +52,9 @@ public class SecurityConfig {
                             response.setContentType("application/json");
                             response.getWriter().write("{\"error\": \"Unauthorized\"}");
                         })
+                )
+                .headers(headers -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin) // SockJS 사용시 필요
                 )
                 .addFilterBefore(
                         new JwtFilter(jwtProvider, userRepository),

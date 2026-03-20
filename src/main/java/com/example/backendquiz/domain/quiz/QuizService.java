@@ -1,4 +1,5 @@
 package com.example.backendquiz.domain.quiz;
+import com.example.backendquiz.auth.AuthUser;
 import com.example.backendquiz.domain.category.CategoryRepository;
 import com.example.backendquiz.domain.question.QueryQuestionRepository;
 import com.example.backendquiz.domain.question.Question;
@@ -18,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class QuizService {
 
     private final QueryQuestionRepository queryQuestionRepository;
+    private final ActivityBroadCastService activityBroadcastService;
+    private final UserRepository userRepository;
 
 
     @Transactional
@@ -27,8 +30,27 @@ public class QuizService {
     }
 
     @Transactional
-    public QuizSubmitResponse submit(QuizSubmitRequest request, User user) {
+    public QuizSubmitResponse submit(QuizSubmitRequest request, AuthUser authUser) {
 
-        return queryQuestionRepository.checkedQuestionIsCorrect(request, user);
+        User user = validUser(authUser);
+
+        QuizSubmitResponse response = queryQuestionRepository.checkedQuestionIsCorrect(request, user);
+        //유저가 없으면 익명으로
+        String nickname = user != null ? user.getNickname() : "익명";
+
+        String category = response.getCategory().name();
+
+        //여기서 방송
+        activityBroadcastService.broadcast(nickname, category, response.isCorrect());
+
+        return response;
+    }
+
+    @Transactional
+    public User validUser(AuthUser user) {
+
+        if (user == null) return null;
+
+        return userRepository.findById(user.getUserId()).orElse(null);
     }
 }

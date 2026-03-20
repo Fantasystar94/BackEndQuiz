@@ -2,8 +2,10 @@ package com.example.backendquiz.domain.wrongnote;
 
 import com.example.backendquiz.domain.question.Question;
 import com.example.backendquiz.domain.user.User;
+import com.example.backendquiz.domain.user.UserRepository;
 import com.example.backendquiz.domain.wrongnote.dto.WrongNoteResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class WrongNoteService {
@@ -22,10 +25,15 @@ public class WrongNoteService {
     @Transactional
     public void addOrIncrease(User user, Question question) {
 
+        log.info("addOrIncrease => user:{}",user);
+
+        if (user == null) return;
+
         wrongNoteRepository.findByUserIdAndQuestionId(user.getId(), question.getId())
-                .ifPresentOrElse(WrongNote::increaseCount,
-                ()->new WrongNote(user, question)
-                );
+                    .ifPresentOrElse(WrongNote::increaseCount,
+                            ()->wrongNoteRepository.save(new WrongNote(user, question))
+                    );
+
 
     }
 

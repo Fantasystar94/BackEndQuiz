@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  app:
+    image: ${ECR_IMAGE}  # GitHub Actions에서 주입
+    container_name: backendquiz-app
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_URL=jdbc:mysql://mysql:3306/backendquiz?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_URL=${OPENAI_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - TOKEN_EXP=${TOKEN_EXP}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_SECRET=${GOOGLE_SECRET}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - backendquiz-net
+
+  mysql:
+    image: mysql:8.0
+    container_name: backendquiz-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=backendquiz
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - backendquiz-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: backendquiz-redis
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - backendquiz-net
+
+volumes:
+  mysql-data:
+  redis-data:
+
+networks:
+  backendquiz-net:
+    driver: bridge

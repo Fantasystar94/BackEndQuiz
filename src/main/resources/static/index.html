@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BackEndQuiz</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<link rel="stylesheet" href="index.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+
+<header>
+  <div class="logo" onclick="goHome()">Backend<span>.quiz</span></div>
+  <nav class="header-nav" id="headerNav"></nav>
+</header>
+
+<div class="app">
+  <div id="mainContent">
+
+    <!-- 메인 -->
+    <div class="page active" id="page-main">
+      <div style="width:100%;max-width:640px;">
+        <div class="hero">
+          <div class="hero-label">// BACKEND DEVELOPER QUIZ</div>
+          <div class="hero-title"><span class="acc">{</span><br>Backend<br>Quiz<span class="acc">}</span></div>
+          <div class="hero-sub">// 백엔드 개발자를 위한 실전 퀴즈 플랫폼</div>
+        </div>
+        <div class="section-label">SELECT_CATEGORY</div>
+        <div class="category-grid" id="categoryGrid"></div>
+      </div>
+    </div>
+
+    <!-- 퀴즈 -->
+    <div class="page" id="page-quiz">
+      <div style="width:100%;max-width:680px;">
+        <div class="quiz-hd">
+          <div class="quiz-tag" id="quizTag">SPRING</div>
+          <div class="quiz-count" id="quizCount">// Q.0</div>
+          <button class="btn" onclick="goHome()" style="margin-left:auto;font-size:11px;padding:6px 14px;">← EXIT</button>
+        </div>
+        <div class="q-box">
+          <div class="q-text" id="qText"><span class="loader"></span> 로딩중...</div>
+        </div>
+        <div class="options" id="optionsWrap"></div>
+        <div class="result-box" id="resultBox">
+          <div class="result-status" id="resultStatus"></div>
+          <div class="result-answer" id="resultAnswer"></div>
+          <div class="result-exp" id="resultExp"></div>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn green hidden" id="btnNext" onclick="nextQuestion()">NEXT QUESTION →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 오답노트 -->
+    <div class="page" id="page-wrongnote">
+      <div style="width:100%;max-width:720px;">
+        <div class="page-title">// <span>오답노트</span></div>
+        <div class="wn-list" id="wnList"></div>
+      </div>
+    </div>
+
+    <!-- 랭킹 -->
+    <div class="page" id="page-ranking">
+      <div style="width:100%;max-width:600px;">
+        <div class="page-title">// <span>랭킹 TOP 10</span></div>
+        <div class="ranking-list" id="rankingList"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 실시간 피드 -->
+  <div class="feed-panel">
+    <div class="feed-hd"><div class="live-dot"></div>LIVE_FEED</div>
+    <div class="feed-body" id="feedBody">
+      <div class="feed-item" style="color:var(--text3);">// Connecting...</div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="index.js"></script>
+</body>
+</html>

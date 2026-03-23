@@ -1,15 +1,11 @@
 package com.example.backendquiz.domain.quiz;
 import com.example.backendquiz.auth.AuthUser;
-import com.example.backendquiz.domain.category.CategoryRepository;
 import com.example.backendquiz.domain.question.QueryQuestionRepository;
-import com.example.backendquiz.domain.question.Question;
-import com.example.backendquiz.domain.question.QuestionRepository;
 import com.example.backendquiz.domain.quiz.dto.QuestionResponse;
 import com.example.backendquiz.domain.quiz.dto.QuizSubmitRequest;
 import com.example.backendquiz.domain.quiz.dto.QuizSubmitResponse;
 import com.example.backendquiz.domain.user.User;
 import com.example.backendquiz.domain.user.UserRepository;
-import com.example.backendquiz.domain.wrongnote.WrongNoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,11 +18,12 @@ public class QuizService {
     private final ActivityBroadCastService activityBroadcastService;
     private final UserRepository userRepository;
 
-
     @Transactional
-    public QuestionResponse getRandomQuestion(Long categoryId) {
+    public QuestionResponse getRandomQuestion(Long categoryId, AuthUser authUser) {
 
-        return queryQuestionRepository.findRandomByCategoryId(categoryId);
+        User user = validUser(authUser);
+
+        return queryQuestionRepository.findRandomByCategoryId(categoryId, user);
     }
 
     @Transactional
@@ -39,6 +36,7 @@ public class QuizService {
         String nickname = user != null ? user.getNickname() : "익명";
 
         String category = response.getCategory().name();
+
 
         //여기서 방송
         activityBroadcastService.broadcast(nickname, category, response.isCorrect());

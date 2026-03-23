@@ -38,7 +38,6 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         log.info("[OAuth2SuccessHandler] 로그인 성공 - email: {}", email);
 
         // 프론트로 토큰 전달 (쿼리파라미터로)
-        // 나중에 프론트 URL로 변경: "http://localhost:3000?token=" + token
-        response.sendRedirect("/login/success?token=" + token);
+        response.sendRedirect("/?token=" + token);
     }
 }

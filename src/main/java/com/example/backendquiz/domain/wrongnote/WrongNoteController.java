@@ -1,5 +1,6 @@
 package com.example.backendquiz.domain.wrongnote;
 
+import com.example.backendquiz.auth.AuthUser;
 import com.example.backendquiz.domain.user.User;
 import com.example.backendquiz.domain.wrongnote.dto.WrongNoteResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,16 +20,17 @@ public class WrongNoteController {
     // 내 오답노트 목록
     @GetMapping
     public ResponseEntity<List<WrongNoteResponse>> getMyWrongNotes(
-            @AuthenticationPrincipal User user) {
-        return ResponseEntity.ok(wrongNoteService.getMyWrongNotes(user));
+            @AuthenticationPrincipal AuthUser authUser) {
+
+        return ResponseEntity.ok(wrongNoteService.getMyWrongNotes(authUser));
     }
 
     // 오답노트 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(
             @PathVariable Long id,
-            @AuthenticationPrincipal User user) {
-        wrongNoteService.delete(id, user);
+            @AuthenticationPrincipal AuthUser authUser) {
+        wrongNoteService.delete(id, authUser);
         return ResponseEntity.noContent().build();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.backendquiz.domain.wrongnote;
 
+import com.example.backendquiz.auth.AuthUser;
 import com.example.backendquiz.domain.question.Question;
 import com.example.backendquiz.domain.user.User;
 import com.example.backendquiz.domain.user.UserRepository;
@@ -19,7 +20,7 @@ import java.util.Optional;
 public class WrongNoteService {
 
     private final WrongNoteRepository wrongNoteRepository;
-
+    private final UserRepository userRepository;
 
     // 오답노트 추가 또는 카운트 증가
     @Transactional
@@ -39,7 +40,9 @@ public class WrongNoteService {
 
     // 내 오답노트 목록 조회
     @Transactional(readOnly = true)
-    public List<WrongNoteResponse> getMyWrongNotes(User user) {
+    public List<WrongNoteResponse> getMyWrongNotes(AuthUser authUser) {
+
+        User user = validUser(authUser);
 
         List<WrongNote> wrongNotes = wrongNoteRepository.findByUser(user);
 
@@ -59,7 +62,10 @@ public class WrongNoteService {
 
     // 오답노트 삭제
     @Transactional
-    public void delete(Long wrongNoteId, User user) {
+    public void delete(Long wrongNoteId, AuthUser authUser) {
+
+        User user = validUser(authUser);
+
         WrongNote wrongNote = wrongNoteRepository.findById(wrongNoteId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 오답노트입니다."));
 
@@ -69,6 +75,14 @@ public class WrongNoteService {
         }
 
         wrongNoteRepository.delete(wrongNote);
+    }
+
+    @Transactional
+    public User validUser(AuthUser user) {
+
+        if (user == null) return null;
+
+        return userRepository.findById(user.getUserId()).orElse(null);
     }
 
 }

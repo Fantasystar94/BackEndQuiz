@@ -22,8 +22,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      # 변경
       - name: Gradle 빌드 (테스트 제외)
-        run: ./gradlew bootJar -x test
+        run: |
+          chmod +x ./gradlew
+          ./gradlew bootJar -x test
 
       - name: AWS 인증
         uses: aws-actions/configure-aws-credentials@v4

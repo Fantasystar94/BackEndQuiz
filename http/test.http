@@ -28,7 +28,7 @@ Content-Type: application/json
 GET http://localhost:8080/oauth2/authorization/google
 
 ### 로그인 성공 후 토큰 확인
-GET http://localhost:8080/login/success?token=YOUR_TOKEN_HERE
+GET http://localhost:8080/login/success?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3b25taW55dW5nOTRAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpZCI6MiwiaWF0IjoxNzc0Mjg5ODIwLCJleHAiOjE3NzQyOTM0MjB9.kojTyEPcQkibLBndvFYG8lAiQimt8b6nqe8AScPD5tc
 
 ### ==================== 오답노트 (로그인 필요) ====================
 

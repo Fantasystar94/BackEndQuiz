@@ -1,4 +1,8 @@
 spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
   application:
     name: BackEndQuiz
   config:
@@ -8,6 +12,16 @@ spring:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_SECRET}
+            scope:
+              - profile
+              - email
   jpa:
     hibernate:
       ddl-auto: update
@@ -24,3 +38,12 @@ openai:
   url: ${OPENAI_URL}
   model: gpt-4o-mini
 
+jwt:
+  secret: ${JWT_SECRET}
+  access-token-expiration: ${TOKEN_EXP}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs

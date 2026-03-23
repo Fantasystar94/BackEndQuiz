@@ -22,10 +22,10 @@ public class User extends BaseEntity {
     private String nickname;
 
     @Column(nullable = false)
-    private String provider;
+    private String provider;    //google
 
     @Column(nullable = false)
-    private String providerId;
+    private String providerId;  //google sub
 
     @Column(nullable = false)
     private UserRole role;
@@ -36,5 +36,9 @@ public class User extends BaseEntity {
         this.provider = provider;
         this.providerId = providerId;
         this.role = role;
+    }
+
+    public void updateNickName(String nickname) {
+        this.nickname = nickname;
     }
 }

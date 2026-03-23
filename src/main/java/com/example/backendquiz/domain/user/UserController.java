@@ -1,5 +1,6 @@
 package com.example.backendquiz.domain.user;
 
+import com.example.backendquiz.common.CommonResponse;
 import com.example.backendquiz.common.UserRole;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,17 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 @Slf4j
 public class UserController {
+
     private final UserService userService;
 
     @PostMapping
-    public User createUser() {
-        log.info("==userApiController==");
-        return userService.createUser(
+    public CommonResponse<User> createUser() {
+        User user = userService.createUser(
                 "test@test.com",
                 "testUser",
                 "provider",
                 "providerId",
                 UserRole.USER
         );
+        return CommonResponse.successWithData("createUserSuccess",user);
     }
 }

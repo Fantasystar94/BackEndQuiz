@@ -4,9 +4,13 @@ import com.example.backendquiz.common.BaseEntity;
 import com.example.backendquiz.domain.question.Question;
 import com.example.backendquiz.domain.user.User;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="wrong_notes")
+@NoArgsConstructor
+@Getter
 public class WrongNote extends BaseEntity {
 
     @Id

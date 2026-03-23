@@ -11,4 +11,5 @@ public class QuizSubmitRequest {
 
     private Long questionId;
     private int answer;
+    private Long currentCategoryId;
 }

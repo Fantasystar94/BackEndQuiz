@@ -1,5 +1,6 @@
 package com.example.backendquiz.infra.openai;
 
+import com.example.backendquiz.infra.openai.dto.OpenAiCreateQuestionMapResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,8 +15,8 @@ public class QuestionAdminController {
     public final QuestionGeneratorService questionGeneratorService;
 
     @PostMapping("/generate")
-    public ResponseEntity<String> generateQuestions() {
-        questionGeneratorService.generateQuestionsForAllCategories();
-        return ResponseEntity.ok("문제생성완료");
+    public ResponseEntity<OpenAiCreateQuestionMapResponse> generateQuestions() {
+        OpenAiCreateQuestionMapResponse response = questionGeneratorService.generateQuestionsForAllCategories();
+        return ResponseEntity.ok(response);
     }
 }

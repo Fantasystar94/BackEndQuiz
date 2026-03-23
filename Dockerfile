@@ -9,7 +9,7 @@ COPY src src
 RUN gradle bootJar --no-daemon -x test
 
 # 실행 단계 - 가벼운 이미지
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
 # 타임존 설정 (한국)

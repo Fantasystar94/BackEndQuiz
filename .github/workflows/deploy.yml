@@ -58,8 +58,9 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           envs: IMAGE
           script: |
-            # ECR 로그인
-            aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
+            # ECR 로그인 (IAM Role 사용)
+            aws ecr get-login-password --region ap-northeast-2 | \
+            docker login --username AWS --password-stdin 336713654168.dkr.ecr.ap-northeast-2.amazonaws.com
             
             # 최신 이미지 pull
             export ECR_IMAGE=$IMAGE

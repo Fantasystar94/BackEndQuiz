@@ -11,7 +11,7 @@
 [![Docker](https://img.shields.io/badge/Docker-28.2-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com)
 [![AWS EC2](https://img.shields.io/badge/AWS-EC2-FF9900?style=flat-square&logo=amazonaws&logoColor=white)](https://aws.amazon.com/ec2)
 
-[**🚀 서비스 바로가기**](http://backendquiz.site) | [**📖 API 문서 (Swagger)**](http://backendquiz.site/swagger-ui.html) | [**💻 GitHub**](https://github.com/Fantasystar94/BackEndQuiz)
+[**🚀 서비스 바로가기**](http://backendquiz.site) | [**💻 GitHub**](https://github.com/Fantasystar94/BackEndQuiz)
 
 </div>
 
@@ -40,7 +40,7 @@ BackEndQuiz는 Spring, Java, Database, Algorithm 4개 카테고리의 백엔드 
 
 단순한 CRUD 게시판을 넘어 **실무에서 자주 사용하는 기술들을 직접 적용**해보기 위해 개발한 사이드 프로젝트입니다.
 
-- **개발 기간**: 2026.03
+- **개발 기간**: 2026.03.09 ~ 2026.03.25
 - **개발 인원**: 1인 (개인 프로젝트)
 - **배포 주소**: http://backendquiz.site
 
@@ -161,7 +161,8 @@ OpenAI API 호출 시 `RestTemplate`은 동기 블로킹 방식이라 응답을 
 
 ## ERD
 
-> ERD 이미지 추가 예정
+<img width="718" height="473" alt="image" src="https://github.com/user-attachments/assets/9b354bb6-ec55-4661-9d72-1c5593885f26" />
+
 
 ---
 

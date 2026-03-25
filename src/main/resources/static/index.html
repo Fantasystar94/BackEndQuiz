@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BackEndQuiz</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<link rel="stylesheet" href="index.css">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<!-- Open Graph 태그 -->
-<meta property="og:title" content="BackEndQuiz - 백엔드 개발자 퀴즈 플랫폼">
-<meta property="og:description" content="Spring, Java, Database, Algorithm 퀴즈로 백엔드 실력을 테스트해보세요!">
-<meta property="og:url" content="http://54.180.235.108.nip.io:8080">
-<meta property="og:type" content="website">
-<meta property="og:image" content="thumbnail.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BackEndQuiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Open Graph 태그 -->
+    <meta property="og:title" content="BackEndQuiz - 백엔드 개발자 퀴즈 플랫폼">
+    <meta property="og:description" content="Spring, Java, Database, Algorithm 퀴즈로 백엔드 실력을 테스트해보세요!">
+    <meta property="og:url" content="http://54.180.235.108.nip.io:8080">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="thumbnail.png">
+
+    <!-- 기본 SEO -->
+    <meta name="description" content="Spring, Java, Database, Algorithm 문제로 실력을 테스트하는 백엔드 개발자 퀴즈 플랫폼 BackEndQuiz">
+    <meta name="keywords" content="백엔드, 백엔드 퀴즈, Spring 퀴즈, Java 퀴즈, 개발자 테스트, 코딩 퀴즈">
+    <meta name="author" content="BackEndQuiz">
+
+    <!-- 검색엔진 크롤링 -->
+    <meta name="robots" content="index, follow">
+
+    <!-- canonical (중복 방지) -->
+    <link rel="canonical" href="http://54.180.235.108.nip.io:8080">
+
+    <!-- 모바일 최적화 -->
+    <meta name="theme-color" content="#0d1117">
 </head>
 <body>
+
+    <h1 style="display:none;">
+        백엔드 개발자 퀴즈 플랫폼 - Spring, Java, Database 문제 제공
+    </h1>
 
 <header>
   <div class="logo" onclick="goHome()">Backend<span>.quiz</span></div>
@@ -91,5 +109,19 @@
 
 <div class="toast" id="toast"></div>
 <script src="index.js"></script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "BackEndQuiz",
+            "url": "http://54.180.235.108.nip.io:8080",
+            "description": "백엔드 개발자를 위한 실전 퀴즈 플랫폼",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "http://54.180.235.108.nip.io:8080?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
 </body>
 </html>

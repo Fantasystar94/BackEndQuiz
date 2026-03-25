@@ -159,7 +159,7 @@ OpenAI API 호출 시 `RestTemplate`은 동기 블로킹 방식이라 응답을 
 
 ## ERD
 
-<img width="718" height="473" alt="image" src="https://github.com/user-attachments/assets/9b354bb6-ec55-4661-9d72-1c5593885f26" />
+<img width="707" height="555" alt="image" src="https://github.com/user-attachments/assets/6ed93dbd-ce8f-4fa8-ad94-1a1a443190ac" />
 
 
 ---
@@ -210,10 +210,7 @@ questions.removeIf(q -> solvedIds.contains(q.getQuestionId().toString()));
 ```
 
 ---
-
-## API 명세
-
-Swagger UI: [http://backendquiz.site/swagger-ui.html](http://backendquiz.site/swagger-ui.html)
+## API 명세서
 
 ### 퀴즈
 

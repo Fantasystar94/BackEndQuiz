@@ -164,6 +164,12 @@ OpenAI API 호출 시 `RestTemplate`은 동기 블로킹 방식이라 응답을 
 
 ---
 
+## K6 부하테스트
+
+https://www.notion.so/32e70a9ce85a80168045d691ec54dcab
+
+---
+
 ## 성능 개선 - Redis 캐싱
 
 ### 적용 배경

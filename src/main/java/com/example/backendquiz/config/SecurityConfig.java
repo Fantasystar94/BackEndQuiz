@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers("/ws/**").permitAll()
                         .requestMatchers("/login/**", "/oauth2/**").permitAll()
                         .requestMatchers("/api/categories", "/api/quiz/**", "/api/ranking").permitAll()
+                        .requestMatchers("/", "/*.html", "/*.css", "/*.js", "/*.svg", "/*.png").permitAll()
                         .requestMatchers(
                                 "/swagger-ui/**",
                                 "/api-docs/**",

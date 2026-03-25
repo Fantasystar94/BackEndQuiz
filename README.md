@@ -210,7 +210,7 @@ questions.removeIf(q -> solvedIds.contains(q.getQuestionId().toString()));
 ```
 
 ---
-## API 명세서
+## api-명세
 
 ### 퀴즈
 

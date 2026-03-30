@@ -135,12 +135,8 @@ OpenAI API 호출 시 `RestTemplate`은 동기 블로킹 방식이라 응답을 
 
 ## 시스템 아키텍처
 
-```
 <img width="821" height="581" alt="architecture drawio" src="https://github.com/user-attachments/assets/2ea38790-a153-4aaf-92ef-f7cab4d17248" />
 
-
-
-```
 
 ---
 

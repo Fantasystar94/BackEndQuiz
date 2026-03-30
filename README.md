@@ -136,24 +136,7 @@ OpenAI API 호출 시 `RestTemplate`은 동기 블로킹 방식이라 응답을 
 ## 시스템 아키텍처
 
 ```
-┌─────────────────────────────────────────────────┐
-│                   GitHub                         │
-│  main push → GitHub Actions                      │
-│              ├── Gradle 빌드                     │
-│              ├── Docker 이미지 빌드              │
-│              ├── ECR 푸시                        │
-│              └── EC2 SSH 배포                    │
-└─────────────────────┬───────────────────────────┘
-                      │
-┌─────────────────────▼───────────────────────────┐
-│                  AWS EC2                         │
-│                                                  │
-│  Client → Nginx (80) → Spring Boot (8080)        │
-│                         ├── MySQL (3306)         │
-│                         └── Redis (6379)         │
-│                                                  │
-│  WebSocket: /ws → STOMP → /topic/activity        │
-└─────────────────────────────────────────────────┘
+<img width="823" height="542" alt="image" src="https://github.com/user-attachments/assets/4eafb5b1-9473-4582-a18f-bd2d08d03bf7" />
 ```
 
 ---
